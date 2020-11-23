@@ -14,7 +14,7 @@ import {CSSTransition, TransitionGroup} from 'react-transition-group'
 
 function App() {
   return (
-    <Router>
+    <Router basename="/awesome_todo_list">
       <Route
         render={({ location }) => ( <> 
         <Header/>

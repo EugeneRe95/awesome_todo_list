@@ -6,8 +6,8 @@ function Toolbar({addTask, tasks}) {
     const [task, setTask] = useState('')
     const [taskDate, setTaskDate] = useState('')
     function addNewTask(){
-        const exists = tasks.filter(item=>item.title===task && ((taskDate!=='') ? item.date===taskDate.split('-').reverse().join('.') : item.date==='no deadline'))
-        if(exists.length>0){
+        const exists = tasks.find(item=>item.title===task && ((taskDate!=='') ? item.date===taskDate.split('-').reverse().join('.') : item.date==='no deadline'))
+        if(exists){
             alert('Already exists')
         }else if(task!==''){
         addTask({title: task, complete: false, date: (taskDate!=='') ? taskDate.split('-').reverse().join('.') : ['no deadline'].join()})
@@ -34,7 +34,7 @@ function Toolbar({addTask, tasks}) {
                 </div>
                 <div className="add-task-tool">
                     <input type="text" placeholder="Task name" value={task} onChange={handleChange} />
-                    <input type="date" value={taskDate} onChange={setDate} />
+                    <input type="date" className="date-picker" value={taskDate} onChange={setDate} />
                     <button onClick={addNewTask}>
                     Add Task
                     </button>

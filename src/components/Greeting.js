@@ -5,21 +5,26 @@ import {addUser} from '../redux/actions'
 function Greeting({addUser, user}) {
   const [name,
     setName] = useState('')
-  function submitFrom() {
+  const [error,
+    setError] = useState('')
+  function submitFrom(e) {
+    e.preventDefault()
     if (name !== '') {
+      setError('')
       addUser(name)
       localStorage.setItem('todoList_User', name)
       setName('')
     } else {
-      alert('Please, put down your name!')
+      setError('warn')
     }
   }
   if (!user) {
     return (
       <div id="greeting">
-        <form className="animate__animated animate__fadeInUp">
+        <form className="animate__animated animate__fadeIn">
           <input
             type="text"
+            className={(error!=='')?'warn':''}
             placeholder="Your name"
             value={name}
             onChange={(e) => {

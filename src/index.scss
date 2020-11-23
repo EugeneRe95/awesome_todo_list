@@ -165,16 +165,20 @@ header {
         .add-task-tool {
           display: flex;
           justify-content: center;
+          align-items: center;
           input {
             margin: 5px;
             padding: 15px 4px;
             border: none;
             font-size: 16px;
+            background:#fff !important;
             border-bottom: 1px solid $first-bg-color;
             color: $dark-color;
             border-radius: 14px;
             transition: all ease-in 170ms;
-
+            &.date-picker{
+              max-width: 110px;
+            }
             &:hover {
               border-color: $hover-color;
               box-shadow: 0 0 2px $hover-color;
@@ -328,6 +332,10 @@ header {
       transition: all ease-in 140ms;
       &:focus{
         box-shadow: 0 2px 6px $hover-color;
+      }
+      &.warn{
+        border: 1px solid red;
+        box-shadow: 0 2px 6px red;
       }
     }
     button{
