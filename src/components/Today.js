@@ -2,6 +2,8 @@ import React from 'react'
 import {connect} from 'react-redux'
 import List from './List'
 
+import today from './TodayDate'
+
 function Today({tasks}) {
   return (
     <div className="list">
@@ -10,17 +12,10 @@ function Today({tasks}) {
   )
 }
 
-const today = [
-  new Date().getDate(),
-  new Date().getMonth() + 1,
-  new Date().getFullYear()
-]
-
 const mapState = state => {
+  
   return {
-    tasks: state
-      .tasks
-      .filter(task => task.date === today.join('.'))
+    tasks: state.tasks.filter(task =>task.date === today().join('-'))
   }
 }
 
