@@ -1,6 +1,7 @@
 export const ADD_TASK='TAKS/ADD_TASK'
 export const DELETE_TASK='TAKS/DELETE_TASK'
 export const FINISH_TASK='TAKS/FINISH_TASK'
+export const EDIT_TASK='TAKS/EDIT_TASK'
 
 export const ADD_USER='USER/ADD_USER'
 

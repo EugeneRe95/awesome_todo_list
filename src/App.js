@@ -11,6 +11,7 @@ import Greeting from './components/Greeting';
 import Toolbar from './components/Toolbar';
 
 import {CSSTransition, TransitionGroup} from 'react-transition-group'
+import Task from './components/Task';
 
 function App() {
   return (
@@ -20,14 +21,21 @@ function App() {
         <Header/>
          <div id = "main-wrapper" >
             <div id="content">
-        <Toolbar/>
-        <TransitionGroup>
-          <CSSTransition classNames="fade" timeout={900} key={location.key}>
+          <Toolbar/>
+          <TransitionGroup>
+            <CSSTransition classNames="fade" timeout={900} key={location.key}>
             <Switch location={location}>
               <Route exact path="/" component={AllTasks}/>
-              <Route exact path="/active-tasks" component={Active}/>
-              <Route exact path="/today-tasks" component={Today}/>
-              <Route exact path="/done-tasks" component={Done}/>
+              <Route path="/active-tasks" component={Active}/>
+              <Route path="/today-tasks" component={Today}/>
+              <Route path="/done-tasks" component={Done}/>
+            </Switch>
+          </CSSTransition>
+        </TransitionGroup>
+        <TransitionGroup>
+          <CSSTransition classNames="slide" timeout={900} key={location.key}>
+            <Switch location={location}>
+              <Route exact path="/tasks/:id" render={(globalProps, props)=> <Task globalProps={globalProps}{...props} />} />
             </Switch>
           </CSSTransition>
         </TransitionGroup>

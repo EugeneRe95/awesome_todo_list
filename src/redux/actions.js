@@ -1,4 +1,4 @@
-import { ADD_TASK, DELETE_TASK, FINISH_TASK, ADD_USER, DELETE_ALL} from './types'
+import { ADD_TASK, DELETE_TASK, FINISH_TASK, EDIT_TASK, ADD_USER, DELETE_ALL} from './types'
 
 export function addTask(payload){
     return{
@@ -15,6 +15,12 @@ export function finishTask(payload){
 export function deleteTask(payload){
     return{
         type: DELETE_TASK,
+        payload
+    }
+}
+export function editTask(payload){
+    return{
+        type: EDIT_TASK,
         payload
     }
 }

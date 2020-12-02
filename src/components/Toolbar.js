@@ -15,7 +15,7 @@ function Toolbar({addTask, tasks}) {
         if(new Date(taskDate) < new Date(today().reverse().join('-'))){
             alert('This date has already passed')
         }else{
-            addTask({title: task, complete: false, date: (taskDate!=='') ? taskDate.split('-').reverse().join('-') : ['no deadline'].join()})
+            addTask({title: task, complete: false, date: (taskDate!=='') ? taskDate.split('-').reverse().join('-') : ['no deadline'].join(), description:'', priority:''})
             setTask('')
         }
         }else{
@@ -28,14 +28,13 @@ function Toolbar({addTask, tasks}) {
     function setDate(e){
         setTaskDate(e.target.value)
     }
-
     return (
         <section id="toolbar">
             <div className="container">
                 <div id="numbers">
                     <p>All: <span>{tasks.length}</span></p>
                     <p>Active: <span>{tasks.filter(task=>task.complete===false).length}</span></p>
-                    <p>Today's: <span>{tasks.filter(task=>task.date===today().join('-')).length}</span></p>
+                    <p>Today's: <span>{tasks.filter(task=> task.date===today().join('-') && task.complete===false).length}</span></p>
                     <p>Done: <span>{tasks.filter(task=>task.complete===true).length}</span></p>
                 </div>
                 <div className="add-task-tool">

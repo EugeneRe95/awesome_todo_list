@@ -15,7 +15,7 @@ function Today({tasks}) {
 const mapState = state => {
   
   return {
-    tasks: state.tasks.filter(task =>task.date === today().join('-'))
+    tasks: state.tasks.filter(task =>task.date === today().join('-') && task.complete===false)
   }
 }
 

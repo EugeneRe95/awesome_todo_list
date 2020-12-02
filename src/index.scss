@@ -133,6 +133,8 @@ header {
   background: $second-bg-color;
   border-radius: 50px 50px 0 0;
   box-shadow: 0 0 6px $dark-color;
+  position: relative;
+  overflow-x: hidden;
 
   #content {
     width: 100%;
@@ -234,23 +236,40 @@ header {
             padding: 0 10px;
             color: $dark-color;
 
-            h3 {
-              padding: 5px;
+            .task-heading{
               display: flex;
-              align-items: center;
-              font-family: $heading-font;
-              span{
-                margin-left: 20px;
-                background: $hover-color;
+              h3 {
                 padding: 5px;
-                border-radius: 10px;
-                font-size: 15px;
-                box-shadow: 0 0 2px $dark-color;
-                &.today{
-                  background: #8bfcb1;
-                }
-                &.expired{
-                  background: red;
+                display: flex;
+                align-items: center;
+                font-family: $heading-font;
+              }
+              .deadline{
+                margin-left: 20px;
+                text-align: center;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                span{
+                  display: block;
+                  background: $hover-color;
+                  margin: 5px 0;
+                  padding: 5px;
+                  border-radius: 10px;
+                  font-size: 15px;
+                  box-shadow: 0 0 2px $dark-color;
+                  &.today{
+                    background: #8bfcb1;
+                  }
+                  &.expired{
+                    background: red;
+                  }
+                  &.medium{
+                    background: orange;
+                  }
+                  &.high{
+                    background: red;
+                  }
                 }
               }
             }
@@ -280,15 +299,18 @@ header {
                 background: transparent;
                 border: none;
                 cursor: pointer;
+                padding: 0;
                 font-size: 28px;
-                margin: 0;
+                margin: 0 4px;
                 transition: all linear 180ms;
 
-                &:first-child {
+                &.edit{
                   color: $hover-color;
                 }
-
-                &:nth-child(2) {
+                &.complete{
+                  color: $hover-color;
+                }
+                &.delete{
                   color: red;
                   position: relative;
                   z-index: 4;
@@ -300,6 +322,145 @@ header {
               }
             }
           }
+        }
+      }
+
+      .task-page{
+        position: absolute;
+        top: 0;
+        right: 0;
+        background: $second-bg-color;
+        width: 50%;
+        max-width: 600px;
+        min-width: 320px;
+        min-height: 100%;
+        box-shadow: 0px 0 10px #646464;
+        padding: 10px 20px;
+        z-index: 100;
+        padding-bottom: 30px;
+        &.complete{
+          &:after{
+            content: "";
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(238, 251, 251, 0.7);
+          }
+        }
+        .tools{
+          width: 100%;
+          border-bottom: 1px solid #ddd;
+          padding: 5px 0;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          button{
+            background: transparent;
+            border: none;
+            font-size: 22px;
+            color: $first-bg-color;
+            cursor: pointer;
+            padding: 0;
+            &:hover{
+              color: $hover-color;
+            }
+          }
+          .close{
+            z-index: 3;
+            font-size: 22px;
+            color: $first-bg-color;
+            &:hover{
+              color: $hover-color;
+            }
+          }
+        }
+        .title{
+          font-size: 28px;
+          margin: 10px 0;
+          display: flex;
+          align-items: flex-end;
+
+          span{
+            font-size: 16px;
+            margin-left: 10px;
+            background: $first-bg-color;
+            border-radius: 10px;
+            padding: 2px 7px;
+            box-shadow: 0 3px 8px #646464;
+            &.today{
+              background: #8bfcb1;
+            }
+            &.expired{
+              background: red;
+            }
+          }
+        }
+      }
+      label{
+        display: flex;
+        flex-wrap: wrap;
+      }
+      .date{
+        margin: 40px 0;
+        input{
+          padding: 5px 10px;
+          margin: 5px;
+          border: 1px solid #ddd;
+          border-radius: 4px;
+          transition: all ease-in-out 300ms;
+          &:focus{
+            border-color: $hover-color;
+          }
+        }
+      }
+      .priority{
+        margin: 40px 0;
+        
+        select{
+          padding: 5px 10px;
+          margin: 5px;
+          border: 1px solid #ddd;
+          border-radius: 4px;
+          transition: all ease-in-out 300ms;
+          &:focus{
+            border-color: $hover-color;
+          }
+        }
+      }
+      .description{
+        textarea{
+          padding: 5px 10px;
+          margin: 5px;
+          border: 1px solid #ddd;
+          border-radius: 4px;
+          transition: all ease-in-out 300ms;
+          &:focus{
+            border-color: $hover-color;
+          }
+        }
+      }
+      .save-changes{
+        background: $first-bg-color;
+        box-shadow: 0 3px 8px #646464;
+        font-weight: 600;
+        padding: 8px 15px;
+        font-size: 14px;
+        margin-top: 15px;
+        cursor: pointer;
+        border-radius: 10px;
+        border: none;
+        transition: all ease-in-out 300ms;
+        &:disabled{
+          background: #ddd;
+          cursor: initial;
+          &:hover{
+            box-shadow: 0 3px 8px #646464;
+          }
+        }
+        &:hover{
+          box-shadow: 0 2px 4px #646464;
         }
       }
   }
@@ -371,4 +532,19 @@ header {
 .fade-exit-active {
   opacity: 0;
   transition: opacity ease-in 400ms;
+}
+
+.slide-enter {
+  transform: translateX(100%);
+}
+.slide-enter-active {
+  transform: translateX(0);
+  transition: transform linear 300ms 400ms;
+}
+.slide-exit {
+  transform: translateX(0);
+}
+.slide-exit-active {
+  transform: translateX(100%);
+  transition: transform linear 300ms;
 }

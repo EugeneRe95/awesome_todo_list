@@ -13,6 +13,7 @@ React, Redux, React-Router, Animated Route transitions, SCSS, LocaleStorage
 2. Task manipulation:
   - Complete
   - Delete
+  - Add additional info (description/priority) to specific task or edit it
 
 3. Tasks scoreboard - the amount of all/active/today's/done tasks
 

@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import FlipMove from 'react-flip-move'
 import {connect} from 'react-redux'
 import {deleteTask, finishTask} from '../redux/actions'
+import {Link} from 'react-router-dom'
 
 import today from './TodayDate'
 
@@ -9,6 +10,7 @@ export class List extends Component {
   constructor() {
     super()
     this.dateCheck = this.dateCheck.bind(this)
+    this.completeTask=this.completeTask.bind(this)
   }
   dateCheck(item) {
     const aimDate = new Date(item.date.split('-').reverse().join("-"))
@@ -26,13 +28,23 @@ export class List extends Component {
       return <span>no deadline</span>
     }
   }
+  completeTask(item){
+    this.props.finishTask({
+      title: item.title,
+      complete: true,
+      date: item.date,
+      description: item.description,
+      priority: item.priority
+  })
+  }
+  
   render() {
     return (
       <FlipMove
         enterAnimation="elevator"
         appearAnimation="elevator"
         leaveAnimation="elevator"
-        duration={700}
+        duration={800}
         staggerDelayBy={100}
         className="container">
 
@@ -40,26 +52,27 @@ export class List extends Component {
           ? (this.props.tasks.map(item => (
             <div
               key={item.title + '/' + item.date}
-              id={item.title + item.date}
               className={"item" + ((item.complete)
               ? ' complete'
               : '')}>
-              <h3>{item.title} {this.dateCheck(item)}
-              </h3>
+              <div className="task-heading">
+                <h3>{item.title}</h3>
+                <div className="deadline">
+                  {this.dateCheck(item)}
+                  {item.priority!=='' ? <span className={item.priority}>{item.priority}</span> : null}
+                </div>
+              </div>
               <div className="item-tools">
-                <button
-                  onClick={() => {
-                  this
-                    .props
-                    .finishTask(item)
-                }}>
+                <button className="edit">
+                  <Link title="task details" to={"/tasks/"+item.title.replace(" ","-")+'-'+item.date}><i className="fas fa-info-circle"></i></Link>
+                </button>
+                <button className="complete"
+                  onClick={()=>this.completeTask(item)}>
                   <i className="fas fa-check-circle"></i>
                 </button>
-                <button
+                <button className="delete"
                   onClick={() => {
-                  this
-                    .props
-                    .deleteTask(item)
+                    this.props.deleteTask(item)
                 }}>
                   <i className="fas fa-minus-circle"></i>
                 </button>
