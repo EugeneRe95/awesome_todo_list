@@ -223,6 +223,7 @@ header {
 
         .container {
           .item {
+            overflow-x: auto;
             width: 100%;
             border: 1px solid #ddd;
             display: flex;
